@@ -1,0 +1,66 @@
+# Rebuilds the board's data every day from DIPAM, PIB and DPE, then publishes
+# the site to GitHub Pages. Also runs on every push to main, or on demand.
+name: Refresh data and deploy board
+
+on:
+  schedule:
+    - cron: "40 12 * * *"   # 18:10 IST daily
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: board
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.actor != 'board-bot'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      - name: Pull DIPAM receipts, dividends, stake sales and market value; DPE survey via PIB
+        run: python scripts/build_psu.py
+        continue-on-error: true   # keeps the last good copy of any source that fails
+        timeout-minutes: 10
+
+      - name: Save refreshed data back to the repo
+        run: |
+          git config user.name "board-bot"
+          git config user.email "board-bot@users.noreply.github.com"
+          git add public/data/psu/psu.json data/psu/mcap-snapshots.csv data/psu/disinvestment-deals.csv
+          git diff --cached --quiet || git commit -m "Refresh PSU data $(date -u +%F)"
+          git push
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+        env:
+          BASE_PATH: ./
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

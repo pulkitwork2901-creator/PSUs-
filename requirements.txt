@@ -1,0 +1,4 @@
+requests>=2.32
+certifi>=2026.10.19
+# reads the Contribution to Central Exchequer total from DPE's Statement J PDF
+pdfplumber>=0.11
