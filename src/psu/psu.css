@@ -1,6 +1,16 @@
 /* PSU Performance Board. Builds on board.css and reform.css (page frame,
    tiles, chart cards, tabs, caveats). Only what this board adds lives here. */
 
+/* The dashboard's two views (sector overview, company financials) */
+.ps-views { display: flex; flex-wrap: wrap; gap: 4px; margin: 0 0 4px; border-bottom: 1px solid var(--eb-card-line); }
+.ps-views a {
+  padding: 9px 14px; font-weight: 600; font-size: 14.5px; text-decoration: none; color: var(--eb-muted);
+  border-bottom: 3px solid transparent; margin-bottom: -1px;
+}
+.ps-views a:hover { color: var(--eb-ink); }
+.ps-views a[aria-current="page"] { color: var(--eb-navy); border-bottom-color: var(--eb-s1); }
+@media (max-width: 640px) { .ps-views a { padding: 8px 10px; font-size: 13.5px; } }
+
 .ps-say { margin: 0 2px; max-width: 120ch; font-size: 15px; line-height: 1.6; color: var(--eb-ink); }
 .ps-say b { color: var(--eb-navy); font-variant-numeric: tabular-nums; }
 .ps .rb-grid-3.ps-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }

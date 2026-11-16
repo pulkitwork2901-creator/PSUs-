@@ -5,6 +5,7 @@ import './psu.css';
 import useIndicators from '../shared/useIndicators.js';
 import { formatDate, formatDateTime } from '../shared/format.js';
 import { PairBars, RankBars, ShareBar, YearBars } from './charts.jsx';
+import Tabs from './Tabs.jsx';
 
 // PSU Performance Board: how central public sector enterprises perform and
 // what the Government earns from them. Reads public/data/psu/psu.json, built
@@ -650,6 +651,7 @@ export default function PsuBoard({ source }) {
   return (
     <div className="eb rb ps" data-skin={skin}>
       <main className="rb-main eb-dash" id="ps-main">
+        <Tabs current="sector" />
         <header className="eb-hero">
           <div className="eb-hero-top">
             <div>

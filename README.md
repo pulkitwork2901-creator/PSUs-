@@ -28,6 +28,25 @@ Things to know:
 - **Each year, by hand:** when the next Public Enterprises Survey is laid, add its headline row to `data/psu/pe-survey-headlines.csv`, refresh `pe-survey-tables.json` from its tables, and point `PIB_PROFIT` and `DPE_STATEMENT_J` in `scripts/build_psu.py` at the new release and statement.
 - **Network.** The build needs `dipam.gov.in`, `www.pib.gov.in` and `www.dpe.gov.in`.
 
+## Maharatna company financials (`companies.html`)
+
+The second view of the dashboard: ten years of each Maharatna's own audited figures (revenue, EBITDA, profit before and after tax, net worth, borrowings, dividend, and where printed capital expenditure, contribution to the exchequer and employees), taken from the multi-year tables in its annual reports. Data: `public/data/companies/maharatna-financials.json`. Every value records the report and PDF page it came from (shown when you point at a figure). Ratios (margins, return on equity, debt to equity, dividend payout) are worked out by the page the same way for every company.
+
+| Company | Years | Source tables |
+|---|---|---|
+| ONGC, SAIL, HAL, BPCL | 2016-17 to 2025-26 | The ten-year (HAL: fifteen-year) table in the 2025-26 annual report |
+| IOCL, HPCL, Oil India, NTPC, Power Grid, BHEL | 2016-17 to 2025-26 | Five-year tables in the 2025-26 and 2020-21 annual reports |
+| GAIL | 2017-18 to 2025-26 | Five-year profiles in the 2025-26 and 2021-22 reports (the 2020-21 PDF's text is unreadable) |
+| Coal India | 2021-22 to 2025-26, consolidated | Performance highlights in the 2025-26 report; no earlier multi-year table exists |
+| PFC, REC | not yet | Their websites closed every connection; add them from downloaded reports |
+
+Things to know:
+
+- Standalone accounts throughout, except Coal India (consolidated, because the parent mainly holds its mining subsidiaries).
+- Definitions follow each company's own table and are shown on the page (SAIL and GAIL report net sales, BPCL sales plus other income, Power Grid only non-current borrowings, HPCL borrowings include leases from 2021-22).
+- Per-share figures are left out on purpose: bonus issues and splits make them incomparable across reports.
+- **Each year, by hand:** when the new annual reports come out (July to October), add the new year for each company from its multi-year table and move the oldest year out. The figures were checked by finding the latest two years' revenue and profit again in each report's statement of profit and loss.
+
 ## Publishing (one-time)
 
 In the repository's Settings, Pages, set Source to "GitHub Actions". After that every push to `main`, and the daily run at 18:10 IST, rebuilds and publishes the site.

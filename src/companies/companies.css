@@ -1,0 +1,40 @@
+/* Maharatna company financials page. Builds on board.css, frame.css and psu.css. */
+
+.co-picker { display: flex; flex-wrap: wrap; gap: 6px; }
+.co-picker button {
+  font: 600 14px var(--eb-font); padding: 7px 14px; min-height: 38px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--eb-card-line); background: var(--eb-paper); color: var(--eb-ink);
+}
+.co-picker button:hover:not([aria-pressed="true"]):not(:disabled) { background: var(--eb-panel-soft); }
+.co-picker button[aria-pressed="true"] { background: var(--eb-navy); border-color: var(--eb-navy); color: var(--eb-paper); }
+.co-picker button:disabled { cursor: not-allowed; opacity: 0.5; border-style: dashed; }
+
+.co-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.co-name { margin: 0; font-family: var(--eb-serif); font-size: clamp(22px, 2.6vw, 28px); color: var(--eb-navy); }
+.co-meta { margin: 4px 0 0; font-size: 13.5px; color: var(--eb-muted); }
+.co-basis { font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--eb-panel-soft); border: 1px solid var(--eb-card-line); color: var(--eb-ink); }
+.co-basis-consolidated { background: var(--eb-band); }
+
+.ps .co-tiles { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.ps .co-tiles .eb-tile-period { white-space: normal; }
+
+.ps .co-table tbody th { min-width: 230px; font-size: 13.5px; }
+.ps .co-table td { font-size: 13.5px; padding: 8px 10px; cursor: help; }
+.co-derived th, .co-derived td { background: var(--eb-panel-soft); }
+.ps .co-table tr.co-derived:hover td, .ps .co-table tr.co-derived:hover th { background: var(--eb-band); }
+
+.co-sources { margin-top: 2px; }
+.co-src-h { margin: 0 0 4px; font-weight: 700; color: var(--eb-ink) !important; }
+.co-sources ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 13.5px; }
+.co-notes { margin: 10px 0 0; padding-left: 20px; font-size: 13.5px; color: var(--eb-muted); display: grid; gap: 4px; }
+
+.ps .co-cmp th[scope="row"] a { font-weight: 700; text-decoration: none; }
+.ps .co-cmp tr.co-current { background: var(--eb-band); }
+
+@media (max-width: 1280px) {
+  .ps .co-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .ps .co-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ps .co-table tbody th { min-width: 150px; }
+}
